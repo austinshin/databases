@@ -1,9 +1,7 @@
 DROP DATABASE IF EXISTS chat;
-
 CREATE DATABASE chat;
 
 USE chat;
-
 -- ---
 -- Globals
 -- ---
@@ -12,16 +10,17 @@ USE chat;
 -- SET FOREIGN_KEY_CHECKS=0;
 
 -- ---
--- Table 'user'
+-- Table 'users'
 -- 
 -- ---
 
 DROP TABLE IF EXISTS `users`;
     
 CREATE TABLE `users` (
-  `userID` INTEGER NOT NULL AUTO_INCREMENT,
-  `user` MEDIUMTEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`userID`)
+  `usersID` INTEGER NOT NULL AUTO_INCREMENT,
+  `user` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`usersID`),
+  UNIQUE KEY (`user`)
 );
 
 -- ---
@@ -34,32 +33,33 @@ DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
   `textID` INTEGER NOT NULL AUTO_INCREMENT,
   `message` MEDIUMTEXT NULL DEFAULT NULL,
-  `userID` INTEGER NOT NULL,
+  `createdAt` DATETIME NULL,
+  `usersID` INTEGER NOT NULL,
+  `roomsID` INTEGER NOT NULL,
   PRIMARY KEY (`textID`),
-KEY (`userID`)
+KEY (`usersID`),
+KEY (`roomsID`)
 );
 
 -- ---
--- Table 'room'
+-- Table 'rooms'
 -- 
 -- ---
 
 DROP TABLE IF EXISTS `rooms`;
     
 CREATE TABLE `rooms` (
-  `roomID` INTEGER NOT NULL AUTO_INCREMENT,
-  `room` MEDIUMTEXT NULL DEFAULT NULL,
-  `userID` INTEGER NOT NULL,
-  PRIMARY KEY (`roomID`),
-KEY (`userID`)
+  `roomsID` INTEGER NOT NULL AUTO_INCREMENT,
+  `room` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`roomsID`)
 );
 
 -- ---
 -- Foreign Keys 
 -- ---
 
-ALTER TABLE `messages` ADD FOREIGN KEY (userID) REFERENCES `users` (`userID`);
-ALTER TABLE `rooms` ADD FOREIGN KEY (userID) REFERENCES `users` (`userID`);
+ALTER TABLE `messages` ADD FOREIGN KEY (usersID) REFERENCES `users` (`usersID`);
+ALTER TABLE `messages` ADD FOREIGN KEY (roomsID) REFERENCES `rooms` (`roomsID`);
 
 -- ---
 -- Table Properties
@@ -73,34 +73,9 @@ ALTER TABLE `rooms` ADD FOREIGN KEY (userID) REFERENCES `users` (`userID`);
 -- Test Data
 -- ---
 
--- INSERT INTO `users` (`userID`,`user`) VALUES
+-- INSERT INTO `users` (`usersID`,`user`) VALUES
 -- ('','');
--- INSERT INTO `messages` (`textID`,`message`,`userID`) VALUES
--- ('','','');
--- INSERT INTO `room` (`roomID`,`room`,`userID`) VALUES
--- ('','','');
-
--- INSERT INTO users (user) VALUES ('Austin');
--- INSERT INTO messages (message, userID) VALUES ('Hello!', 1); 
--- Is there an easy way to keep track of the user ID?
---  SELECT userID from users 
---  WHERE user = 'Austin';  -> outputs 1
--- INSERT INTO room (room, userID) VALUES ('lobby', 1);
-
--- CREATE TABLE messages (
---    Describe your table here.
-
-  
--- );
-
-/* Create other tables and define schemas for them here! */
-
-
-
-
-/*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
- *  to create the database and the tables.*/
-
-
-
+-- INSERT INTO `messages` (`textID`,`message`,`createdAt`,`usersID`,`roomsID`) VALUES
+-- ('','','','','');
+-- INSERT INTO `rooms` (`roomsID`,`room`) VALUES
+-- ('','');

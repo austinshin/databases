@@ -1,5 +1,5 @@
 var express = require('express');
-var db = require('./db');
+var db = require('./db/index.js');
 
 // Middleware
 var morgan = require('morgan');
@@ -13,6 +13,21 @@ module.exports.app = app;
 
 // Set what we are listening on.
 app.set('port', 3000);
+
+// db.query('CREATE DATABASE IF NOT EXISTS test', function(err) {
+//   if (err) {
+//     console.error(err);
+//   }  
+// });
+
+// app.post('/users', function (req, res) {
+//   db.query('hahaha', req.body, function (err, result) {
+//     if (err) {
+//       throw err;
+//     }
+//     res.send('haha');
+//   });
+// });
 
 // Logging and parsing
 app.use(morgan('dev'));

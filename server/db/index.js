@@ -6,8 +6,10 @@ var mysql = require('mysql');
 
 
 const connection = mysql.createConnection({
-  host: 'http://127.0.0.1:3000/classes/users',
-  user: 'root',
+  host: '127.0.0.1',
+  user: 'student',
+  password: 'student',
+  database: 'chat',
   // TODO password: '', no pw with root. make sure this is proper 
 });
 
@@ -15,9 +17,23 @@ connection.connect(function(err) {
   if (err) {
     console.error('error connecting: ' + err.stack);
     return;
-  }
-  console.log('connected as id: ' + connection.threadId);
+  } else {
+      console.log('listening...');  
+      console.log('connected as id: ' + connection.threadId); 
+    }
 });
+
+
+connection.query('SELECT 1', function(error, results, fields) {
+  if (error) {
+    throw error;
+  }
+  console.log('success!');
+});
+
+module.exports = connection;
+
 
 //info to create connection taken from
 //https://www.npmjs.com/package/mysql#establishing-connections
+//you can do a connection.query?
