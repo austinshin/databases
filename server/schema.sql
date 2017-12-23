@@ -1,4 +1,4 @@
-DROP DATABASE chat;
+DROP DATABASE IF EXISTS chat;
 
 CREATE DATABASE chat;
 
@@ -16,9 +16,9 @@ USE chat;
 -- 
 -- ---
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `users`;
     
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `userID` INTEGER NOT NULL AUTO_INCREMENT,
   `user` MEDIUMTEXT NULL DEFAULT NULL,
   PRIMARY KEY (`userID`)
@@ -58,14 +58,14 @@ KEY (`userID`)
 -- Foreign Keys 
 -- ---
 
-ALTER TABLE `messages` ADD FOREIGN KEY (userID) REFERENCES `user` (`userID`);
-ALTER TABLE `room` ADD FOREIGN KEY (userID) REFERENCES `user` (`userID`);
+ALTER TABLE `messages` ADD FOREIGN KEY (userID) REFERENCES `users` (`userID`);
+ALTER TABLE `room` ADD FOREIGN KEY (userID) REFERENCES `users` (`userID`);
 
 -- ---
 -- Table Properties
 -- ---
 
--- ALTER TABLE `user` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `messages` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `room` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -73,15 +73,18 @@ ALTER TABLE `room` ADD FOREIGN KEY (userID) REFERENCES `user` (`userID`);
 -- Test Data
 -- ---
 
--- INSERT INTO `user` (`userID`,`user`) VALUES
+-- INSERT INTO `users` (`userID`,`user`) VALUES
 -- ('','');
 -- INSERT INTO `messages` (`textID`,`message`,`userID`) VALUES
 -- ('','','');
 -- INSERT INTO `room` (`roomID`,`room`,`userID`) VALUES
 -- ('','','');
 
--- INSERT INTO user (user) VALUES ('Austin')
--- INSERT INTO messages (message, userID) VALUES ('Hello!', 1);
+-- INSERT INTO users (user) VALUES ('Austin');
+-- INSERT INTO messages (message, userID) VALUES ('Hello!', 1); 
+-- Is there an easy way to keep track of the user ID?
+--  SELECT userID from user 
+--  WHERE user = 'Austin';  -> outputs 1
 -- INSERT INTO room (room, userID) VALUES ('lobby', 1);
 
 -- CREATE TABLE messages (
