@@ -44,9 +44,9 @@ KEY (`userID`)
 -- 
 -- ---
 
-DROP TABLE IF EXISTS `room`;
+DROP TABLE IF EXISTS `rooms`;
     
-CREATE TABLE `room` (
+CREATE TABLE `rooms` (
   `roomID` INTEGER NOT NULL AUTO_INCREMENT,
   `room` MEDIUMTEXT NULL DEFAULT NULL,
   `userID` INTEGER NOT NULL,
@@ -59,7 +59,7 @@ KEY (`userID`)
 -- ---
 
 ALTER TABLE `messages` ADD FOREIGN KEY (userID) REFERENCES `users` (`userID`);
-ALTER TABLE `room` ADD FOREIGN KEY (userID) REFERENCES `users` (`userID`);
+ALTER TABLE `rooms` ADD FOREIGN KEY (userID) REFERENCES `users` (`userID`);
 
 -- ---
 -- Table Properties
@@ -67,7 +67,7 @@ ALTER TABLE `room` ADD FOREIGN KEY (userID) REFERENCES `users` (`userID`);
 
 -- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `messages` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `room` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `rooms` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
 -- Test Data
@@ -83,7 +83,7 @@ ALTER TABLE `room` ADD FOREIGN KEY (userID) REFERENCES `users` (`userID`);
 -- INSERT INTO users (user) VALUES ('Austin');
 -- INSERT INTO messages (message, userID) VALUES ('Hello!', 1); 
 -- Is there an easy way to keep track of the user ID?
---  SELECT userID from user 
+--  SELECT userID from users 
 --  WHERE user = 'Austin';  -> outputs 1
 -- INSERT INTO room (room, userID) VALUES ('lobby', 1);
 
