@@ -35,7 +35,8 @@ CREATE TABLE `messages` (
   `message` MEDIUMTEXT NULL DEFAULT NULL,
   `createdAt` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `usersID` INTEGER NOT NULL,
-  `roomsID` INTEGER NOT NULL,
+  `room` MEDIUMTEXT NOT NULL,
+  `roomsID` INTEGER NOT NULL DEFAULT 0,
   PRIMARY KEY (`textID`),
 KEY (`usersID`),
 KEY (`roomsID`)
@@ -81,15 +82,4 @@ ALTER TABLE `messages` ADD FOREIGN KEY (roomsID) REFERENCES `rooms` (`roomsID`);
 -- ('','');
 
 
-INSERT INTO users (user) VALUES ('Austin');
-INSERT INTO users (user) VALUES ('Eric');
-INSERT INTO users (user) VALUES ('Louis');
 
-
-INSERT INTO rooms (room) VALUES ('lobby');
-
-INSERT INTO messages(message, usersID, roomsID) VALUES ('It is Austin', 1, 1);
-
-INSERT INTO messages(message, usersID, roomsID) VALUES ('It is Eric', 2, 1);
-
-INSERT INTO messages(message, usersID, roomsID) VALUES ('Louis is me', 3, 1);
