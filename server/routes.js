@@ -13,3 +13,7 @@ router.post('/users', controller.users.post);
 
 module.exports = router;
 
+SELECT messages.textID, messages.message, messages.createdAt, users.user, rooms.room
+    FROM messages, users, rooms
+    ON (users.usersID = messages.usersID) AND (rooms.roomsID = messages.roomsID)
+    ORDER BY messages.createdAt desc;

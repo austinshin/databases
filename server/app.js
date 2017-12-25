@@ -14,21 +14,6 @@ module.exports.app = app;
 // Set what we are listening on.
 app.set('port', 3000);
 
-// db.query('CREATE DATABASE IF NOT EXISTS test', function(err) {
-//   if (err) {
-//     console.error(err);
-//   }  
-// });
-
-// app.post('/users', function (req, res) {
-//   db.query('hahaha', req.body, function (err, result) {
-//     if (err) {
-//       throw err;
-//     }
-//     res.send('haha');
-//   });
-// });
-
 // Logging and parsing
 app.use(morgan('dev'));
 app.use(parser.json());
@@ -44,4 +29,3 @@ if (!module.parent) {
   app.listen(app.get('port'));
   console.log('Listening on', app.get('port'));
 }
-

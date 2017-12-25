@@ -6,9 +6,9 @@ var mysql = require('mysql');
 
 
 const connection = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'student',
-  password: 'student',
+//  host: '127.0.0.1',
+  user: 'root',
+  password: '',
   database: 'chat',
   // TODO password: '', no pw with root. make sure this is proper 
 });
