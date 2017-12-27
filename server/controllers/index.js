@@ -8,7 +8,7 @@ module.exports = {
   messages: {
     get: function (req, res) {
       models.messages.get(function(err, results) {
-        if (err) { 
+        if (err) {
           console.error(err);
         }
         res.json(results);
@@ -16,16 +16,24 @@ module.exports = {
 
     }, // a function which handles a get request for all messages
     post: function (req, res) {
+      module.exports.users.post(req, res);
+      var params;
       req.on('data', (data) => {
-        data = JSON.parse(data);
-        var params = [data.text, data.username, data.roomname];
+        console.log(data);
+        let parsedData = JSON.parse(data);
+
+        params = [parsedData.text, parsedData.username, parsedData.roomname];
+        console.log(parsedData);
         console.log(params);
-        models.messages.post(params, function(err, results) {
-          console.log('post params', params);
+        models.messages.post(params, function(err, result) {
+          // data.results = result;
           res.sendStatus(201);
-      });
-      });
-      }
+          // res.writeHead(201, {'Content-Type': 'application/json'});
+          // res.write(JSON.stringify({results: result}));
+          // res.end();
+          });
+        });
+    }
     // a function which handles posting a message to the database
   },
 
@@ -40,14 +48,14 @@ module.exports = {
       });
     },
     post: function (req, res) {
+      var params;
       req.on('data', function(data) {
-        data = JSON.parse(data);
-        var params = [data.username];
-        models.users.post(params, function(err, results) {
-          res.sendStatus(201);
+        let parsedData = JSON.parse(data);
+        params = [parsedData.username];
+        models.users.post(params, function(err, result) {
+          // res.sendStatus(201);
         });
       });
     }
   }
 };
-

@@ -13,7 +13,7 @@ var app = {
   init: function() {
     // Get username
     app.username = window.location.search.substr(10);
-    console.log(app.server);
+    console.log(app.username);
     // Cache jQuery selectors
     app.$message = $('#message');
     app.$chats = $('#chats');
@@ -45,10 +45,11 @@ var app = {
       data: JSON.stringify(message),
       success: function (data) {
         // Clear messages input
+
         app.$message.val('');
 
         // Trigger a fetch to update the messages, pass true to animate
-        
+        console.log('ahaha');
         app.fetch();
       },
       error: function (error) {
@@ -64,6 +65,18 @@ var app = {
       data: { order: '-createdAt' },
       contentType: 'application/json',
       success: function(data) {
+
+        let data2 = {results: ''};
+        data2.results = data;
+        data = data2;
+        console.log(data.results);
+        // data.results = data;
+        // data.results = JSON.stringify(data.results);
+
+        // data.results = data;
+        // console.log(data.results);
+
+
         // Don't bother if we have nothing to work with
         if (!data.results || !data.results.length) { return; }
 
@@ -74,16 +87,16 @@ var app = {
         var mostRecentMessage = data.results[data.results.length - 1];
 
         // Only bother updating the DOM if we have a new message
-        if (mostRecentMessage.objectId !== app.lastMessageId) {
+        // if (mostRecentMessage.objectId !== app.lastMessageId) {
           // Update the UI with the fetched rooms
           app.renderRoomList(data.results);
-
+          console.log('here');
           // Update the UI with the fetched messages
           app.renderMessages(data.results, animate);
 
           // Store the ID of the most recent message
           app.lastMessageId = mostRecentMessage.objectId;
-        }
+        // }
       },
       error: function(error) {
         console.error('chatterbox: Failed to fetch messages', error);
