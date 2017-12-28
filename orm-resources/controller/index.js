@@ -5,8 +5,11 @@ module.exports = {
       db.Message.findAll({include: [db.User]})
       .then(function(results) {
         res.json(results);
+      })
+      .catch(function(err) {
+        console.error(err);
+        db.close();
       });
-
     },
 
     post: function(req, res){
@@ -16,12 +19,16 @@ module.exports = {
         db.User.findOrCreate({where: {username: parsedData.username}})
         .spread(function(user, created) {
           db.Message.create({
-            userid: user.id,
+            userid: user.get('id'),
             text: parsedData.text,
             roomname: parsedData.roomname
           })
           .then(function(message) {
             res.sendStatus(201);
+          })
+          .catch(function(err) {
+            console.error(err);
+            db.close();
           });
         });
         //if user doesn't exist find or create it
@@ -36,6 +43,10 @@ module.exports = {
       db.User.findAll()
       .then(function(results) {
         res.json(results);
+      })
+      .catch(function(err) {
+        console.error(err);
+        db.close();
       });
     },
 

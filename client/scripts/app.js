@@ -161,6 +161,8 @@ var app = {
     if (!message.roomname) {
       message.roomname = 'lobby';
     }
+    message.username = message.user.username;
+    // console.log(message.user.username);
 
     // Create a div to hold the chats
     var $chat = $('<div class="chat"/>');

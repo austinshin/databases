@@ -10,12 +10,11 @@ db
     console.error('Unable to connect to the database:', err);
   });
 
-const User = db.define('user', {
+const User = db.define('User', {
   username: Sequelize.STRING
 });
 
-const Message = db.define('messages', {
-  userid: Sequelize.INTEGER,
+const Message = db.define('Message', {
   text: Sequelize.STRING,
   roomname: Sequelize.STRING
 });
@@ -25,7 +24,6 @@ User.hasMany(Message);
 
 User.sync();
 Message.sync();
-
 
 exports.User = User;
 exports.Message = Message;
